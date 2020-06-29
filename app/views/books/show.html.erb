@@ -1,0 +1,64 @@
+<div class="container">
+<div class="row">
+
+<div class="col-xs-3">
+  <h2>User info</h2>
+    <%= attachment_image_tag @user, :profile_image, :fill, 50, 50, format: 'png', fallback: "no_image.png", class: "attachment user profile_image fallback pro_image" %>
+  <table class="table">
+    <tbody><tr></tr>
+    <tr>
+       <th>name</th>
+       <th><%= @user.name %></th>
+    </tr>
+    <tr>
+       <th>introduction</th>
+       <th><%= @user.introduction %></th>
+    </tr>
+</tbody></table>
+
+
+  <%= link_to "", edit_user_path(@user.id), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench" %>
+
+    <h2>New book</h2>
+    <%= form_for(@book_new) do |f| %>
+
+<% if @book_new.errors.any? %>
+    <div class = "alert alert-warning">
+        <ul>
+            <% book.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+                <li>error</li>
+            <% end %>
+        </ul>
+    </div>
+<% end %>
+
+<p>Title</p>
+  <%= f.text_field :title, class: "col-xs-12 book_title" %>
+
+  <p>Opinion</p>
+  <%= f.text_area :body, class: "col-xs-12 book_body" %>
+
+  <%= f.submit "Create Book", class: "btn btn-primary col-xs-12" %>
+<% end %>
+</div>
+
+<div class="col-xs-9">
+    <h2>Book detail</h2>
+    <table class="table">
+      <tbody>
+    <tr>
+    　　<td><%= attachment_image_tag @user, :profile_image, fallback: "no_image.png", class: "attachment user profile_image fallback index_image" %></td>
+      <td><%= link_to @book.title, book_path %></td>
+    <td><%= @book.body %></td>
+    <% if @book.user == current_user %>
+      <td><%= link_to "Edit", edit_book_path, class: "btn-sm btn-success edit_book_22742" %></td>
+      <td><%= link_to "Destroy", book_path(@book), methed: :delete, class: "btn-sm btn-success Destroy_book_22742", data: {confirm: "削除しますか？"} %></td>
+    <% end %>
+    </tr>
+    <%= link_to @user.name, user_path(@user.id) %>
+    </tbody>
+  </table>
+</div>
+</div>
+</div>
